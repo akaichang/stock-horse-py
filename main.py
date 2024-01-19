@@ -1,39 +1,61 @@
-import os
-import telegram
-from flask import Flask, request
-from telegram.ext import Dispatcher, MessageHandler, Filters
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jun  2 21:16:35 2021
 
-# Initial Flask app
+@author: Ivan
+版權屬於「行銷搬進大程式」所有，若有疑問，可聯絡ivanyang0606@gmail.com
+
+Line Bot聊天機器人
+第一章 Line Bot申請與串接
+Line Bot機器人串接與測試
+"""
+#載入LineBot所需要的套件
+from flask import Flask, request, abort
+
+from linebot import (
+    LineBotApi, WebhookHandler
+)
+from linebot.exceptions import (
+    InvalidSignatureError
+)
+from linebot.models import *
+
 app = Flask(__name__)
 
-# 設定你的token
-bot = telegram.Bot(token=('5575672332:AAG4UwbJp6VU_rWKVRD7M0yNrd8T2YB5OfM'))
-bot.send_message(chat_id = '922931613', text ='你可以開始了')
+# 必須放上自己的Channel Access Token
+line_bot_api = LineBotApi('1437f2ed3f6cbbcbe6033976c1a34d64')
+# 必須放上自己的Channel Secret
+handler = WebhookHandler('Sr7FHElXR68M+nJNdDMqp6w4zh8wDKubzOndLyaabKdaqC9mY1My4J3GzyLPnIjUxGm36zxZjCFQrbTLjx98MoAn7RakgFbb6JTOA/jHdVb3D9R5sSv95UrpN5z4Be/J3H+chlMS/R30zgZ/yF5RjQdB04t89/1O/w1cDnyilFU=')
 
-@app.route('/hook', methods=['POST'])
-def webhook_handler():
-    """Set route /hook with POST method will trigger this method."""
-    if request.method == "POST":
-        update = telegram.Update.de_json(request.get_json(force=True), bot)
+line_bot_api.push_message('你自己的ID', TextSendMessage(text='你可以開始了'))
 
-        # Update dispatcher process that handler to process this message
-        dispatcher.process_update(update)
-    return 'ok'
+# 監聽所有來自 /callback 的 Post Request
+@app.route("/callback", methods=['POST'])
+def callback():
+    # get X-Line-Signature header value
+    signature = request.headers['X-Line-Signature']
 
+    # get request body as text
+    body = request.get_data(as_text=True)
+    app.logger.info("Request body: " + body)
 
-def reply_handler(bot, update):
-    """自動回復"""
-    text = update.message.text
-    update.message.reply_text(text)
+    # handle webhook body
+    try:
+        handler.handle(body, signature)
+    except InvalidSignatureError:
+        abort(400)
 
-# New a dispatcher for bot
-dispatcher = Dispatcher(bot, None)
+    return 'OK'
 
-# Add handler for handling message, there are many kinds of message. For this handler, it particular handle text
-# message.
-dispatcher.add_handler(MessageHandler(Filters.text, reply_handler))
+#訊息傳遞區塊
+##### 基本上程式編輯都在這個function #####
+@handler.add(MessageEvent, message=TextMessage)
+def handle_message(event):
+    message = TextSendMessage(text=event.message.text)
+    line_bot_api.reply_message(event.reply_token,message)
 
+#主程式
+import os
 if __name__ == "__main__":
-    # Running server
-    port = int(os.environ.get('PORT', 27017))
+    port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
