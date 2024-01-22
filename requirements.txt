@@ -1,10 +1,3 @@
-line-bot-sdk
-bs4
-flask
-pymongo
-datetime
-pandas
-SnowNLP
-emoji
-pyshorteners
-scipy
+line-bot-sdk==2.3.0
+flask==2.1.2
+requests==2.28.0
