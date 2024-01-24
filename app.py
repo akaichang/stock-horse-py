@@ -14,6 +14,12 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage
 )
 import os
+import pandas as pd
+import requests
+from bs4 import BeautifulSoup
+import re
+import time
+from datetime import date
 
 app = Flask(__name__)
 
