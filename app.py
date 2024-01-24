@@ -56,6 +56,8 @@ def getCurPrice(tStock):
     res = requests.get(url,headers=headers)
 
     sname=res.text.replace('"','').split('{')[2].split(',')[1].split(':')[1]
+
+    return sname
     if (sname)=="":
       return ""
     # 最新價格
