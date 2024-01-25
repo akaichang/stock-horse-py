@@ -16,6 +16,7 @@ from linebot.models import (
 import os
 import pandas as pd
 import requests
+import http.client
 from bs4 import BeautifulSoup
 import re
 import time
