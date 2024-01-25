@@ -52,15 +52,18 @@ def handle_message(event):
     line_bot_api.reply_message(event.reply_token, message)
 
 def getCurPrice(tStock):
-    url = f"https://tw.quote.finance.yahoo.net/quote/q?type=ta&perd=d&mkt=10&sym={tStock}&v=1&callback=jQuery111302872649618000682_1649814120914&_=1649814120915"
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/111.25 (KHTML, like Gecko) Chrome/99.0.2345.81 Safari/123.36'}
-    res = requests.get(url,headers=headers)
+    host = "tw.quote.finance.yahoo.net"
+    conn = http.client.HTTPSConnection(host)
+    qstring = f"/quote/q?type=ta&perd=d&mkt=10&sym={tStock}&v=1&callback=jQuery111302872649618000682_1649814120914&_=1649814120915"
+    conn.request("GET", qstring, headers=headers)
+    res = conn.getresponse().read().decode()
 
     sname=res.text.replace('"','').split('{')[2].split(',')[1].split(':')[1]
 
     return str(sname)
     if (sname)=="":
-      return ""
+        return ""
     # 最新價格
     current = [l for l in res.text.split('{') if len(l)>=60][-1]
     current = current.replace('"','').split(',')
