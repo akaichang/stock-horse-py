@@ -130,11 +130,11 @@ def getRevenueSurplus(tStock):
         if line.text == '營收盈餘':
             cmkey = line['cmkey'].replace('=','%3D').replace('/','%2F').replace('+','%2B')
     
-    url = f"https://www.cmoney.tw/finance/ashx/mainpage.ashx?action=GetStockRevenueSurplus&stockId={stock_id}&cmkey={cmkey}"
+    url = f"https://www.cmoney.tw/finance/ashx/mainpage.ashx?action=GetStockRevenueSurplus&stockId={tStock}&cmkey={cmkey}"
     # 特別注意要加入Referer
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/111.25 (KHTML, like Gecko) Chrome/99.0.2345.81 Safari/123.36',
-        'Referer': f"https://www.cmoney.tw/finance/{stock_id}/f00029"
+        'Referer': f"https://www.cmoney.tw/finance/{tStock}/f00029"
     }
     res = requests.get(url,headers=headers)
     return res.json()
@@ -151,12 +151,12 @@ def getDividendPolicy(tstock):
           if line.text == '股利政策':
               cmkey = line['cmkey'].replace('=','%3D').replace('/','%2F').replace('+','%2B')
     
-      url = f"https://www.cmoney.tw/finance/ashx/mainpage.ashx?action=GetDividendPolicy&stockId={stock_id}&cmkey={cmkey}"
+      url = f"https://www.cmoney.tw/finance/ashx/mainpage.ashx?action=GetDividendPolicy&stockId={tStock}&cmkey={cmkey}"
     
       # 特別注意要加入Referer
       headers = {
           'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/111.25 (KHTML, like Gecko) Chrome/99.0.2345.81 Safari/123.36',
-          'Referer': f"https://www.cmoney.tw/finance/{stock_id}/f00027"
+          'Referer': f"https://www.cmoney.tw/finance/{tStock}/f00027"
       }
     
       res = requests.get(url,headers=headers)
