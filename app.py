@@ -57,7 +57,10 @@ def getCurPrice(tStock):
     host = "tw.quote.finance.yahoo.net"
     conn = http.client.HTTPSConnection(host)
     #qstring = "/quote/q?type=ta&perd=d&mkt=10&sym=" + tStock + "&v=1&callback=jQuery111302872649618000682_1649814120914&_=1649814120915"
-    qstring = f"/quote/q?type=ta&perd=d&mkt=10&sym={tStock}&v=1&callback=jQuery111302872649618000682_1649814120914&_=1649814120915"
+    #qstring = f"/quote/q?type=ta&perd=d&mkt=10&sym={tStock}&v=1&callback=jQuery111302872649618000682_1649814120914&_=1649814120915"
+    qstring = "/quote/q?type=ta&perd=d&mkt=10&sym="
+    qstring = qstring + tStock 
+    qstring = qstring + "&v=1&callback=jQuery111302872649618000682_1649814120914&_=1649814120915"
     conn.request("GET", qstring, headers=headers)
     res = conn.getresponse().read().decode()
 
