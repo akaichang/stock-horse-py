@@ -47,7 +47,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     message = TextSendMessage(text=event.message.text)
-    message = getCurPrice(message)
+    message = getCurPrice(str(message))
     if message=="":
         message="查無資料"
     line_bot_api.reply_message(event.reply_token, message)
@@ -57,7 +57,7 @@ def getCurPrice(tStock):
     host = "tw.quote.finance.yahoo.net"
     conn = http.client.HTTPSConnection(host)
     #qstring = "/quote/q?type=ta&perd=d&mkt=10&sym=" + tStock + "&v=1&callback=jQuery111302872649618000682_1649814120914&_=1649814120915"
-    qstring = "/quote/q?type=ta&perd=d&mkt=10&sym=" + tStock + "&v=1&callback=jQuery111302872649618000682_1649814120914&_=1649814120915"
+    qstring = f"/quote/q?type=ta&perd=d&mkt=10&sym={tStock}&v=1&callback=jQuery111302872649618000682_1649814120914&_=1649814120915"
     conn.request("GET", qstring, headers=headers)
     res = conn.getresponse().read().decode()
 
