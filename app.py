@@ -65,7 +65,7 @@ def main(infStock):
     today = date.today()
     sYear = today.year-2
     eYear = today.year
-    sRt = id + "  " + name + "  " + str(rprice)
+    sRt = id + "  " + name + "  " + str(rPrice)
     if today.month==1:
         sYear = sYear-1
         eYear = eYear-1
