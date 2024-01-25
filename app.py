@@ -141,9 +141,9 @@ def getRevenueSurplus(tStock):
     return res.json()
     ##營收 --- end
 
-def getDividendPolicy(tstock):
+def getDividendPolicy(tStock):
       ## 股利 --- start
-      url = f"https://www.cmoney.tw/finance/{tstock}/f00027"
+      url = f"https://www.cmoney.tw/finance/{tStock}/f00027"
       headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/111.25 (KHTML, like Gecko) Chrome/99.0.2345.81 Safari/123.36'}
       res = requests.get(url,headers=headers)
       soup = BeautifulSoup(res.text,'html.parser')
