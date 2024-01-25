@@ -47,7 +47,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     message = TextSendMessage(text=event.message.text)
-    rtl = getCurPrice(message.text)
+    rtl = getCurPrice(str(message.text))
     
     if rtl=="":
         rtl="查無資料"
