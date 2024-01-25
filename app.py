@@ -59,7 +59,7 @@ def handle_message(event):
 def main(infStock):
     id = infStock.split(":")[0]
     name = infStock.split(":")[1]
-    rprice = float(infStock.split(":")[2])
+    rPrice = float(infStock.split(":")[2])
     df1 = pd.DataFrame(getRevenueSurplus(id)) #營收
     df2 = pd.DataFrame(getDividendPolicy(id)) #股利
     today = date.today()
