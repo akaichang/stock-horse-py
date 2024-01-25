@@ -62,6 +62,7 @@ def main(infStock):
     rprice = float(infStock.split(":")[2])
     df1 = pd.DataFrame(getRevenueSurplus(id)) #營收
     df1 = pd.DataFrame(getRevenueSurplus(id)) #股利
+    today = date.today()
     sYear = today.year-2
     eYear = today.year
     sRt = id + "  " + name + "  " + str(rprice)
