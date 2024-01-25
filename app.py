@@ -64,7 +64,7 @@ def main(infStock):
     df1 = pd.DataFrame(getRevenueSurplus(id)) #股利
     sYear = today.year-2
     eYear = today.year
-    sRt = id + "  " + name + "  " + rprice
+    sRt = id + "  " + name + "  " + str(rprice)
     if today.month==1:
         sYear = sYear-1
         eYear = eYear-1
@@ -180,7 +180,7 @@ def getCurPrice(tStock):
       price=float(re.search(':.*',current[4]).group()[1:])
       # 昨日價格
       #yday = float(re.search(':.*',[l for l in res.text.split('{') if len(l)>=60][-2].split(',')[4]).group()[1:])
-      return sname + ':' + price
+      return sname + ':' + str(price)
     
 #import os
 if __name__ == "__main__":
