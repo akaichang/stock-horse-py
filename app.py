@@ -66,7 +66,7 @@ def main(infStock):
     sYear = today.year-2
     eYear = today.year
     sRt = id + "  " + name + "  " + str(rPrice)
-    if today.month==1:
+    if today.month==2:
         sYear = sYear-1
         eYear = eYear-1
     sRt = ('  年,  月均營收, 股利,    基數,目標價')
